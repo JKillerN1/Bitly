@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 
-def is_bitlink(link):
+def is_bitlink(headers, link):
     splitted_link = urlparse(link)
     without_scheme_link = '{}{}'.format(splitted_link.netloc, splitted_link.path)
     api_url = f'https://api-ssl.bitly.com/v4/bitlinks/{without_scheme_link}'
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Сокращение ссылок'
     )
-    parser.add_argument('link', help='Описание аргумента')
+    parser.add_argument('link', help='Введите ссылку или битлинк')
     link = parser.parse_args().link
-    if is_bitlink(link):
+    if is_bitlink(headers, link):
         try:
             clicks_count = count_clicks(headers, link)
             print(clicks_count)
@@ -51,4 +51,4 @@ if __name__ == '__main__':
             bitlink = shorten_link(headers, link)
             print('Битлинк', bitlink)
         except requests.exceptions.HTTPError:
-            exit('Ошибка в сокращенной ссылке')
+            exit('Ошибка в сокращеннии ссылки')
