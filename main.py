@@ -1,9 +1,9 @@
-import os
 import argparse
-import requests
+import os
 from urllib.parse import urlparse
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
+import requests
 
 def is_bitlink(headers, link):
     splitted_link = urlparse(link)
